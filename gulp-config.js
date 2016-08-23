@@ -6,6 +6,7 @@ module.exports = {
         cssCompileFileList: [ './src/assets/less/style.less' ],
         libFileList: [ './src/assets/scripts/lib/*.js' ],
         jsEntryFile: [ './src/assets/scripts/app.js' ],
+        jsFileList: [ './src/assets/scripts/**/*.js' ],
         imageFileList: [ './src/assets/images/**/*' ],
         viewFileList: [ './src/assets/views/**/*.html' ],
         fontFileList: [ './src/assets/fonts/**/*' ],
