@@ -6,8 +6,10 @@
     var Text = require('./text');
     
     // var ... Global var of project
-    var TILE_WIDTH = 80;
-    var TILE_HEIGHT = 40;
+    var TILE_WIDTH = 100;
+    var TILE_HEIGHT = 50;
+    
+    var MOVE_SPEED = 0.1;
     
     /**
      * Constructor
@@ -38,26 +40,24 @@
         context.clearRect(0, 0, canvas.width, canvas.height);
 
         if(this.player.isMovingLeft) {
-            this.player.position.x -= 0.1;
+            this.player.position.x -= MOVE_SPEED;
         } else if(this.player.isMovingRight) {
-            this.player.position.x += 0.1;
+            this.player.position.x += MOVE_SPEED;
         }
         if(this.player.isMovingUp) {
-            this.player.position.y -= 0.1;
+            this.player.position.y -= MOVE_SPEED;
         } else if(this.player.isMovingDown) {
-            this.player.position.y += 0.1;
+            this.player.position.y += MOVE_SPEED;
         }
         
         // Draws level at correction position
+        var cellElevation = 1;
         context.drawImage(this.level.image,
-//                (canvasWidth - TILE_WIDTH) / 2 - (this.player.position.x + this.player.position.y) * TILE_WIDTH/ 2,
-//                canvasHeight / 2 - 5 - TILE_HEIGHT * 2 + (this.player.position.x - this.player.position.y) * TILE_HEIGHT / 2
-                (canvasWidth - TILE_WIDTH) / 2 - (this.player.position.x + this.player.position.y) * TILE_WIDTH/ 2,
-                canvasHeight / 2 - 5 - TILE_HEIGHT * 3 + (this.player.position.x - this.player.position.y) * TILE_HEIGHT / 2
+                canvasWidth / 2 - (TILE_WIDTH * ((this.player.position.x + this.player.position.y) / 2) + TILE_WIDTH / 2),
+                canvasHeight / 2 + this.player.height - (TILE_HEIGHT * (this.player.position.y - (this.player.position.x + this.player.position.y) / 2) + this.level.canvasHeight - this.level.height * TILE_HEIGHT / 2 - TILE_HEIGHT * cellElevation / 2)
         );
-        
+
         // Sets player position
-        //this.player.draw();
         context.drawImage(this.player.image, (canvasWidth - this.player.width) / 2, (canvasHeight ) / 2);
 
         // Loop
@@ -86,13 +86,14 @@
         this.level.cellList = cellList;
         this.level.generateImage();
 
+        // Gets start cell position
         this.player.position = level.startCell;
     };
 
     var level1 = {
-        width: 9,
+        width: 50,
         height: 3,
-        startCell: {x: 8, y: 2}
+        startCell: {x: 0, y: 1}
      };
 
     // Inits canvas
