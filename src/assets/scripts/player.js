@@ -1,4 +1,5 @@
-// TODO: Set correction player orientation when drawing
+// TODO: Set correction player orientation when drawing (scale -1,1, back image...)
+
 var Player = function() {
     // Gets image
     this.image = document.getElementById('c');
@@ -10,7 +11,6 @@ var Player = function() {
 };
 
 Player.prototype.draw = function(coordinates) {
-    // TODO: set player direction
     context.drawImage(this.image, (canvasWidth - this.width) / 2, (canvasHeight ) / 2);
 };
 
